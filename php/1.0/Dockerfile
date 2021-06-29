@@ -35,6 +35,9 @@ RUN sed 's/;emergency_restart_threshold.*/emergency_restart_threshold = 10/' $PH
     && sed 's/;emergency_restart_interval.*/emergency_restart_interval = 1m/' $PHP_FPM_CONF_PATH \
     && sed 's/;process_control_timeout.*/process_control_timeout = 10s/' $PHP_FPM_CONF_PATH
 
+# 添加修改uid,gid和时区的工具
+RUN apk --no-cache add shadow tzdata
+
 # 配置www.conf, 这个自己配置, 服务器不同配置不同
 # COPY ./www.conf $WWW_CONF_PATH
 
