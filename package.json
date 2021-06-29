@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "git":"git add . && git commit -m'1'",
-    "postgit": "git push origin"
+    "add":"git add . && git commit -m'1'",
+    "pregit":"git add . && git commit -m'1'",
+    "git":"git push origin"
   },
   "keywords": [],
   "author": "",
