@@ -1,9 +1,11 @@
+# BEGIN
+
 FROM php:7.3.28-fpm-alpine3.14
 # 设置容器时区, 世界时间+8
 ENV TZ="Asia/Shanghai"
 # 设置是否开启opcache缓存, 0表示不开启, 1表示开启
 ENV OPCACHE_ENABLE=0
-# www.conf配置路径
+# php-fpm.conf www.conf 配置路径
 ENV PHP_FPM_PATH="/usr/local/etc/php-fpm.conf"
 ENV WWW_CONF_PATH="/usr/local/etc/php-fpm.d/www.conf"
 
@@ -27,26 +29,27 @@ RUN apk add --no-cache $PHPIZE_DEPS \
 # 获取php.ini
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# 配置php.ini
+# 配置php.ini, 配置了opcache, timezone
 COPY ./conf.d/ $PHP_INI_DIR/conf.d/
 
 # 配置php-fpm.conf
-RUN sed 's/;emergency_restart_threshold.*/emergency_restart_threshold = 10/' $PHP_FPM_CONF_PATH \
-    && sed 's/;emergency_restart_interval.*/emergency_restart_interval = 1m/' $PHP_FPM_CONF_PATH \
-    && sed 's/;process_control_timeout.*/process_control_timeout = 10s/' $PHP_FPM_CONF_PATH
+RUN sed 's/;emergency_restart_threshold.*/emergency_restart_threshold = 10/' $PHP_FPM_PATH \
+    && sed 's/;emergency_restart_interval.*/emergency_restart_interval = 1m/' $PHP_FPM_PATH \
+    && sed 's/;process_control_timeout.*/process_control_timeout = 10s/' $PHP_FPM_PATH
+
+# 设置www.conf的默认配置
+COPY ./www.conf $WWW_CONF_PATH
 
 # 添加修改uid,gid和时区的工具
 RUN apk --no-cache add shadow tzdata
 
-# 配置www.conf, 这个自己配置, 服务器不同配置不同
-# COPY ./www.conf $WWW_CONF_PATH
-
 # END
+
+
 
 # 大家以这个镜像构建时, 有两个变量能用:
 # OPCACHE_ENABLE, 0不开启opcache, 1开启opcache
-# WWW_CONF_PATH, www.conf的路径, 用来被你的配置覆盖
-
+# WWW_CONF_PATH, www.conf的路径, 用来被你的配置覆盖, 不覆盖则使用默认
 
 
 
