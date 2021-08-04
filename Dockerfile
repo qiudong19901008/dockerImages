@@ -46,7 +46,6 @@ RUN apk --no-cache add shadow tzdata
 # END
 
 
-
 # 大家以这个镜像构建时, 有两个变量能用:
 # OPCACHE_ENABLE, 0不开启opcache, 1开启opcache
 # WWW_CONF_PATH, www.conf的路径, 用来被你的配置覆盖, 不覆盖则使用默认
