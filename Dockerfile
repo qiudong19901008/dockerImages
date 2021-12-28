@@ -1,4 +1,4 @@
-FROM qiudong19901008/php:latest
+FROM qiudong19901008/php:1.1
 
 # 设置是否开启opcache缓存, 0表示不开启, 1表示开启
 ENV OPCACHE_ENABLE=1
