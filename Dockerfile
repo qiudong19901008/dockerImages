@@ -1,6 +1,6 @@
 # BEGIN
 
-FROM php:7.3.28-fpm-alpine3.14
+FROM php:8.1.2-fpm-alpine3.15
 # 设置容器时区, 世界时间+8
 ENV TZ="Asia/Shanghai"
 # 设置是否开启opcache缓存, 0表示不开启, 1表示开启
