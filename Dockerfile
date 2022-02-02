@@ -17,12 +17,12 @@ ENV WWW_CONF_PATH="/usr/local/etc/php-fpm.d/www.conf"
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
     && apk update \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd pdo_mysql opcache mbstring bcmath
+    && docker-php-ext-install -j$(nproc) gd pdo_mysql opcache bcmath
 
 # 安装PECL扩展 redis
 RUN apk add --no-cache $PHPIZE_DEPS \
     && apk update \
-    && pecl install redis-4.3.0 \
+    && pecl install redis \
     && docker-php-ext-enable redis \
     && apk del $PHPIZE_DEPS
 
