@@ -16,7 +16,7 @@ ENV WWW_CONF_PATH="/usr/local/etc/php-fpm.d/www.conf"
 # 安装内置扩展 gd pdo_mysql opcache mbstring
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
     && apk update \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
+    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-png=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd pdo_mysql opcache mbstring bcmath
 
 # 安装PECL扩展 redis
